@@ -48,7 +48,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
         collectionView?.register(PhotoCell.self, forCellWithReuseIdentifier: "photoCell")
         collectionView?.delegate = self
         collectionView?.dataSource = self
-        collectionView?.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+        collectionView?.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
         
         pullUpView.addSubview(collectionView!)
         
@@ -153,6 +153,10 @@ extension MapVC: MKMapViewDelegate{
         removeSpinner()
         removeProgressLable()
         cancelAllSessions()
+        
+        imageArray = []
+        imageUrlArray = []
+        collectionView?.reloadData()
 
         animateViewUp()
         addSwipe()
@@ -175,7 +179,7 @@ extension MapVC: MKMapViewDelegate{
                     if finished{
                         self.removeSpinner()
                         self.removeProgressLable()
-                        //reload collection view
+                        self.collectionView?.reloadData()
                     }
                 }
             }
@@ -190,7 +194,6 @@ extension MapVC: MKMapViewDelegate{
     
     
     func retreiveUrls(forAnotation anotation: DroppablePin, completionHandler: @escaping (_ status: Bool) -> () ){
-        imageUrlArray = []
         
         AF.request(flickrUrl(forApiKey: apiKey, withAnnotation: anotation, andNumberOfPhotos: 40)).responseJSON { (response) in
             guard let json = response.value as? [String: Any] else{ return }
@@ -205,7 +208,6 @@ extension MapVC: MKMapViewDelegate{
     }
     
     func retreiveImages(handler: @escaping (_ status: Bool) -> ()){
-        imageArray = []
         
         for url in imageUrlArray{
             AF.request(url).responseImage { (response) in
@@ -262,13 +264,24 @@ extension MapVC: UICollectionViewDelegate, UICollectionViewDataSource{
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        4
+        imageArray.count
     }
     
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as? PhotoCell else{
+            return UICollectionViewCell() }
+        
+        let imageView = UIImageView(image: imageArray[indexPath.row])
+        cell.addSubview(imageView)
         return cell
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let popVC = storyboard?.instantiateViewController(identifier: "PopVC") as? PopVC else { return }
+        popVC.initData(forImage: imageArray[indexPath.row])
+        present(popVC, animated: true, completion: nil)
     }
     
 }
