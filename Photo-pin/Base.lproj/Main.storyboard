@@ -62,11 +62,11 @@
                             <constraint firstItem="YSO-Ot-pJ0" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="9pG-f9-ANY"/>
                             <constraint firstItem="0Px-7V-Qe8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="CY8-0H-FH8"/>
                             <constraint firstItem="YSO-Ot-pJ0" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="LfD-iO-l3l"/>
-                            <constraint firstAttribute="bottom" secondItem="UdQ-Ws-ALy" secondAttribute="bottom" id="TGD-Zh-xkE"/>
+                            <constraint firstAttribute="bottom" secondItem="UdQ-Ws-ALy" secondAttribute="bottom" id="SUJ-TZ-Ttp"/>
+                            <constraint firstItem="YSO-Ot-pJ0" firstAttribute="bottom" secondItem="UdQ-Ws-ALy" secondAttribute="top" id="TGD-Zh-xkE"/>
                             <constraint firstItem="0Px-7V-Qe8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="WXP-Tp-juE"/>
-                            <constraint firstItem="UdQ-Ws-ALy" firstAttribute="top" secondItem="YSO-Ot-pJ0" secondAttribute="bottom" id="XN3-fN-enZ"/>
                             <constraint firstAttribute="trailing" secondItem="UdQ-Ws-ALy" secondAttribute="trailing" id="cda-aR-Vby"/>
-                            <constraint firstItem="YGB-ca-yf8" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="dbQ-oB-fqW"/>
+                            <constraint firstItem="YGB-ca-yf8" firstAttribute="bottom" secondItem="UdQ-Ws-ALy" secondAttribute="top" constant="-34" id="dbQ-oB-fqW"/>
                             <constraint firstItem="YSO-Ot-pJ0" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="du2-kR-Z1c"/>
                             <constraint firstItem="YSO-Ot-pJ0" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="glq-DW-vGN"/>
                             <constraint firstItem="UdQ-Ws-ALy" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="gpR-db-u2l"/>
@@ -75,7 +75,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="locationButtonConstraint" destination="dbQ-oB-fqW" id="1mg-GC-G21"/>
                         <outlet property="mapView" destination="YSO-Ot-pJ0" id="R6k-t8-TCg"/>
+                        <outlet property="mapViewBottomConstraint" destination="TGD-Zh-xkE" id="pO7-oU-oJ6"/>
+                        <outlet property="pullUpView" destination="UdQ-Ws-ALy" id="r0a-ha-ryl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
